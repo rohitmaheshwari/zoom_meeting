@@ -10,7 +10,7 @@ function App() {
   const meetingNumber = urlParams.get("meetingNumber") || "";
   const signature = urlParams.get("signature") || "";
   const passWord = urlParams.get("passWord") || "";
-  const role = 0;
+  // const role = 0;
   const userName = urlParams.get("userName") || "";
   const userEmail = urlParams.get("userEmail") || "";
   const registrantToken = "";
