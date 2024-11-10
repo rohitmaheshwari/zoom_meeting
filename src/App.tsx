@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./App.css";
 import { ZoomMtg } from "@zoom/meetingsdk";
 
@@ -17,10 +18,8 @@ function App() {
   const zakToken = "";
   const leaveUrl = "http://localhost:5173";
 
-  function startMeeting(signature: string) {
+  function startMeeting() {
     document.getElementById("zmmtg-root")!.style.display = "block";
-
-    console.log(signature);
 
     ZoomMtg.init({
       leaveUrl: leaveUrl,
@@ -40,9 +39,9 @@ function App() {
           success: (success: unknown) => {
             console.log(success);
           },
-          error: (error: any) => {
+          error: (error: unknown) => {
             console.error("Failed to join meeting:", error);
-            if (error.errorCode === 4011) {
+            if ((error as { errorCode: number }).errorCode === 4011) {
               console.error(
                 "App needs to be published or added as a test user. Please check Zoom Marketplace settings."
               );
@@ -56,14 +55,11 @@ function App() {
     });
   }
 
-  return (
-    <div className="App">
-      <main>
-        <h1>Zoom Meeting SDK Sample React</h1>
-        <button onClick={() => startMeeting(signature)}>Join Meeting</button>
-      </main>
-    </div>
-  );
+  useEffect(() => {
+    startMeeting();
+  });
+
+  return null;
 }
 
 export default App;
